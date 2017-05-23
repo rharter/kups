@@ -1,4 +1,4 @@
-package com.ryanharter.parcelize.processor
+package com.ryanharter.kups.processor
 
 import com.google.common.truth.Truth.assertThat
 import com.google.testing.compile.CompilationRule
@@ -26,7 +26,7 @@ class ParcelablesTests {
 
   @Test fun simple() {
     val out = """
-        |package com.ryanharter.parcelize.processor
+        |package com.ryanharter.kups.processor
         |
         |import android.os.Parcel
         |import android.os.Parcelable
@@ -36,7 +36,7 @@ class ParcelablesTests {
         |
         |data sealed class ParcelableSimpleParcelable(val a: Int, val b: Double,
         |    val c: String) : Parcelable {
-        |  fun unparcel(): ParcelablesTests.SimpleParcelable {
+        |  fun extract(): ParcelablesTests.SimpleParcelable {
         |    return ParcelablesTests.SimpleParcelable(a, b, c)
         |  }
         |
@@ -57,7 +57,7 @@ class ParcelablesTests {
         |
         |fun Parcel.readSimpleParcelable(): ParcelablesTests.SimpleParcelable {
         |  val p: ParcelableSimpleParcelable = readParcelable()
-        |  return p.unparcel()
+        |  return p.extract()
         |}
         |
         |fun ParcelablesTests.SimpleParcelable.asParcelable(): ParcelableSimpleParcelable {
@@ -69,6 +69,6 @@ class ParcelablesTests {
     val actual = DataParcelable(elements).createParcelableWrapper(
         elements.getTypeElement(SimpleParcelable::class.qualifiedName))
 
-    assertThat(actual).isEqualTo(out)
+    assertThat(actual.toString()).isEqualTo(out)
   }
 }

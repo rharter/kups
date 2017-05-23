@@ -1,4 +1,4 @@
-group 'com.ryanharter.parcelize'
+group 'com.ryanharter.kups'
 version '0.1-SNAPSHOT'
 
 apply plugin: 'kotlin'
@@ -25,6 +25,7 @@ dependencies {
   compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
   compile project(':annotations')
   compile 'com.squareup:kotlinpoet:0.3.0-SNAPSHOT'
+  compile 'com.google.auto.service:auto-service:1.0-rc3'
 
   testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   testCompile "org.junit.platform:junit-platform-launcher:1.0.0-M4"

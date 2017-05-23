@@ -1,5 +1,4 @@
-rootProject.name = 'parcelize'
+rootProject.name = 'kups'
 include 'processor'
-findProject(':processor')?.name = 'parcelize-processor'
 include 'annotations'
 

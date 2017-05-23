@@ -1,4 +1,4 @@
-group 'com.ryanharter.parcelize'
+group 'com.ryanharter.kups'
 version '0.1-SNAPSHOT'
 
 buildscript {

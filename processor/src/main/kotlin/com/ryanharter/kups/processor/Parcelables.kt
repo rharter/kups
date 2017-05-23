@@ -1,4 +1,4 @@
-package com.ryanharter.parcelize.processor
+package com.ryanharter.kups.processor
 
 import com.squareup.kotlinpoet.ANY
 import com.squareup.kotlinpoet.ArrayTypeName
@@ -66,15 +66,29 @@ class Parcelables {
 fun PropertySpec.readFromParcelStatement(parcel: ParameterSpec): CodeBlock {
   return when (type) {
     TypeName.get(String::class) -> CodeBlock.of("%N.readString()", parcel)
+    TypeName.get(Int::class) -> CodeBlock.of("%N.readInt()", parcel)
+    TypeName.get(Byte::class) -> CodeBlock.of("%N.readByte()", parcel)
+    TypeName.get(Short::class) -> CodeBlock.of("%N.readInt() as Short", parcel)
+    TypeName.get(Char::class) -> CodeBlock.of("%N.readInt() as Char", parcel)
+    TypeName.get(Long::class) -> CodeBlock.of("%N.readLong()", parcel)
+    TypeName.get(Float::class) -> CodeBlock.of("%N.readFloat()", parcel)
+    TypeName.get(Double::class) -> CodeBlock.of("%N.readDouble()", parcel)
+    TypeName.get(Boolean::class) -> CodeBlock.of("%N.readInt() == 1", parcel)
     else -> throw IllegalArgumentException("Invalid type: $this")
   }
 }
 
 fun PropertySpec.writeToParcelStatement(parcel: ParameterSpec): CodeBlock {
   return when (type) {
-    TypeName.get(Int::class) -> CodeBlock.of("dest.writeInt(%N)", this)
-    TypeName.get(String::class) -> CodeBlock.of("dest.writeString(%N)", this)
-    TypeName.get(Double::class) -> CodeBlock.of("dest.writeDouble(%N)", this)
+    TypeName.get(String::class) -> CodeBlock.of("%N.writeString(%N)", parcel, this)
+    TypeName.get(Int::class) -> CodeBlock.of("%N.writeInt(%N)", parcel, this)
+    TypeName.get(Byte::class) -> CodeBlock.of("%N.writeByte(%N)", parcel, this)
+    TypeName.get(Short::class) -> CodeBlock.of("%N.writeInt(%N)", parcel, this)
+    TypeName.get(Char::class) -> CodeBlock.of("%N.writeInt(%N)", parcel, this)
+    TypeName.get(Long::class) -> CodeBlock.of("%N.writeLong(%N)", parcel, this)
+    TypeName.get(Float::class) -> CodeBlock.of("%N.writeFloat(%N)", parcel, this)
+    TypeName.get(Double::class) -> CodeBlock.of("%N.writeDouble(%N)", parcel, this)
+    TypeName.get(Boolean::class) -> CodeBlock.of("%N.writeInt(if (%N) 1 else 0)", parcel, this)
     else -> throw IllegalArgumentException("Invalid type: $this")
   }
 }
