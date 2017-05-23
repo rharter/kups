@@ -1,0 +1,5 @@
+rootProject.name = 'parcelize'
+include 'processor'
+findProject(':processor')?.name = 'parcelize-processor'
+include 'annotations'
+

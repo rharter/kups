@@ -1,0 +1,42 @@
+group 'com.ryanharter.parcelize'
+version '0.1-SNAPSHOT'
+
+apply plugin: 'kotlin'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+sourceCompatibility = 1.5
+
+junitPlatform {
+  filters {
+    engines {
+      include 'spek'
+    }
+  }
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url "http://dl.bintray.com/jetbrains/spek" }
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+  compile project(':annotations')
+  compile 'com.squareup:kotlinpoet:0.3.0-SNAPSHOT'
+
+  testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  testCompile "org.junit.platform:junit-platform-launcher:1.0.0-M4"
+  testCompile 'com.google.testing.compile:compile-testing:0.9'
+  testCompile files(org.gradle.internal.jvm.Jvm.current().getToolsJar())
+  testCompile 'com.google.truth:truth:0.27'
+  testCompile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+  testCompile ('org.jetbrains.spek:spek-api:1.1.1') {
+    exclude group: 'org.jetbrains.kotlin'
+  }
+  testRuntime ('org.jetbrains.spek:spek-junit-platform-engine:1.1.1') {
+    exclude group: 'org.junit.platform'
+    exclude group: 'org.jetbrains.kotlin'
+  }
+}
