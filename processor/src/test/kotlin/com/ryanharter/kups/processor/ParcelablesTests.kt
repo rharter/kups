@@ -51,7 +51,7 @@ class ParcelablesTests {
         |  }
         |}
         |
-        |fun Parcel.writeSimpleParcelable(p: ParcelablesTests.SimpleParcelable, parcelableFlags: Int = 0) {
+        |fun Parcel.write(p: ParcelablesTests.SimpleParcelable, parcelableFlags: Int = 0) {
         |  writeParcelable(ParcelableSimpleParcelable(p.a, p.b, p.c), parcelableFlags)
         |}
         |

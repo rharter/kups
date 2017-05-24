@@ -74,7 +74,7 @@ class DataParcelable(val elements: Elements) {
           }.build()
           addType(wrapper)
 
-          addFun(FunSpec.builder("write${typeName.simpleName()}").apply {
+          addFun(FunSpec.builder("write").apply {
             receiver(ClassName.get("android.os", "Parcel"))
 
             val p = ParameterSpec.builder("p", typeName).build()

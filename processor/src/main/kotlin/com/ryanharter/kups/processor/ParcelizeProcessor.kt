@@ -21,7 +21,6 @@ class ParcelizeProcessor : AbstractProcessor() {
     val adapters = annotations.map { dataParcelable.createParcelableWrapper(it) }
     adapters.forEach { it.writeTo(processingEnv.filer) }
 
-
     return true
   }
 }
